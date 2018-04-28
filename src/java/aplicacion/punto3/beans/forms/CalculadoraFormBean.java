@@ -130,6 +130,7 @@ public class CalculadoraFormBean implements Serializable{
     public void dividir() {
         if (numeroB == 0) {
             mensajeDeError = "Error. Division por 0.";
+            resultado = 0 ;
         } else {
             resultado = calculadora.dividir(numeroA, numeroB);
             mensajeDeError = "" ;
