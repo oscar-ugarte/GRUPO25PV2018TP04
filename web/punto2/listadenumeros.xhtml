@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>    
+      <title>LISTA DE NUMEROS</title>
+    </h:head>
+    <h:body>
+         <p:panel id="pnlGestorNumeros" header="Gestion de Numeros" > <!--Esta es la cabecera-->
+            <h:form id="frmRegistrarNumero" >
+                <p:panelGrid id="pnlRegistrarNumero" columnClasses="4" > <!--Agrupa los elementos que contiene y se puede indicar cuantas columnas tendra-->
+                    <p:outputLabel id="lblNumero" for="txtNumero" value="Ingrese un numero : " />
+                    <p:inputNumber id="txtNumero" value="#{gestorDeNumerosFormBean.numero}"  />
+                    <p:outputLabel value=" " /><!--Para generar un espacio-->
+                    <p:commandButton id="btnRegistrarNumero" value="Registrar Numero" 
+                                     actionListener="#{gestorDeNumerosFormBean.agregarNumero()}"
+                                     update=":frmNumeros"
+                                     />
+                    <!--El actionlistener se encarga de llamar al metodo-->
+                    <!--El update se encarga de actualizar la tabla de numeros.-->
+                </p:panelGrid>
+            </h:form>
+            <!--Aqui termina la primera parte de ingreso. Ahora se muestran los datos-->
+            <h:form id="frmNumeros" >
+                <!--Aqui se indica de donde sacara los numeros y var es la variable que se usara para acceder a ellos.-->
+                <br/>
+                <p:dataTable id="tblNumeros" value="#{gestorDeNumerosFormBean.listaNumeros.numeros}" var="num" rendered="#{gestorDeNumerosFormBean.listaNumeros.numeros.size() > 0 eq true }"  >
+                    <!--rendered es para ocultar la tabla hasta que se cumpla una condicion-->
+                    <p:column headerText="Numeros Registrados : " >
+                        <p:outputLabel value="#{num}" /> <!--Numero dentro de la lista.-->
+                    </p:column>
+                </p:dataTable>
+                <br/>
+                <!--Aqui comienza la parte donde se mostraran el menor, mayor y promedio-->
+                <h:panelGrid id="tblCalculos" columns="2">
+                    <p:outputLabel id="lblMenor" value="Numero menor :" />
+                    <p:outputLabel id="lblValorMenor" value="#{gestorDeNumerosFormBean.menor}" />
+                    <p:outputLabel id="lblMayor" value="Numero mayor :" />
+                    <p:outputLabel id="lblValorMayor" value="#{gestorDeNumerosFormBean.mayor}" />
+                    <p:outputLabel id="lblPromedio" value="Promedio :" />
+                    <p:outputLabel id="lblValorPromedio" value="#{gestorDeNumerosFormBean.promedio}" />                    
+                </h:panelGrid>
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
+
