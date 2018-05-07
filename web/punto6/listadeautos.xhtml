@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Aplicacion Lista de Autos</title>
+    </h:head>
+    <h:body>
+        <p:panel id="pnlAutos" header="Listados de Autos">
+            <h:form id="frmAutos">
+                <p:dataTable id="tblAutos" value="#{listaDeAutosFormBean.listaAutos.autos}" var="auto">
+                    <p:column  headerText="Patente">
+                        <p:outputLabel value="#{auto.patente}" />
+                    </p:column>
+                    <p:column  headerText="Marca">
+                        <p:outputLabel value="#{auto.marca}" />
+                    </p:column>
+                    <p:column  headerText="Modelo">
+                        <p:outputLabel value="#{auto.modelo}" />
+                    </p:column>
+                    <p:column  headerText="Color">
+                        <p:outputLabel value="#{auto.color}" />
+                    </p:column>
+                    <p:column  headerText="Combustible">
+                        <p:outputLabel value="#{auto.combustible}" />
+                    </p:column>
+                    <p:column headerText="Modificar">
+                        <p:commandButton  value="Modificar" 
+                                          actionListener="#{listaDeAutosFormBean.editar(auto)}"
+                                          update=":frmAutos:tblModificarAuto"
+                                          onclick="PF('dlgMAuto').show();"
+                                          />
+                    </p:column>
+                </p:dataTable>
+
+                <p:dialog id="dlgAuto" header="Modificar Auto" modal="true" widgetVar="dlgMAuto"  >
+                    <p:panelGrid id="tblModificarAuto" columns="2">
+                        <p:outputLabel id="lblPatente" value="Patente :" />
+                        <p:inputText id="txtPatente" disabled="true" value="#{listaDeAutosFormBean.auto.patente}"/>
+                        <p:outputLabel id="pnlMarca" value="Marca :" />
+                        <p:inputText id="txtMarca" value="#{listaDeAutosFormBean.auto.marca}" />
+                        <p:outputLabel id="lblModelo" value="Modelo :"/>
+                        <p:inputText id="txtModelo" value="#{listaDeAutosFormBean.auto.modelo}" />
+                        <p:outputLabel id="lblColor" value="Color :"  />
+                        <p:inputText id="txtColor" value="#{listaDeAutosFormBean.auto.color}" />
+                        <p:outputLabel id="lblCombustible" value="Combustible :" />
+                        <p:inputText id="txtCombustible" value="#{listaDeAutosFormBean.auto.combustible}" />
+                        <p:commandButton value="Guardar Cambios" 
+                                         onclick="PF('dlgAuto').hide();"
+                                         update=":frmAutos:tblAutos"
+                                         />
+                    </p:panelGrid>
+                </p:dialog>
+
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
+
