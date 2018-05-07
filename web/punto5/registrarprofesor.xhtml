@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Aplicación Registro de Profesor</title>
+    </h:head>
+    <h:body>
+         <p:panel id="pnlRegistroProfesor" header="Registro de Profesor" >
+            <h:form id="frmRegistroProfesor" >
+                
+                <p:panelGrid id="tblRegistroProfesor" columns="2">
+                    <p:outputLabel id="lblLegajo"  for="txtLegajo" value="Legajo : " />
+                    <p:inputText id="txtLegajo"  value="#{profesorFormBean.profesorBean.profesor.legajo}" required="true" />
+                    <p:outputLabel id="lblDocumento" for="txtDocumento" value="Documento : " />
+                    <p:inputText id="txtDocumento" value="#{profesorFormBean.profesorBean.profesor.documento}" required="true"/>
+                    <p:outputLabel id="lblNombres" for="txtNombres" value="Nombres : " />
+                    <p:inputText id="txtNombres" value="#{profesorFormBean.profesorBean.profesor.nombres}" required="true" />
+                    <p:outputLabel id="lblApellido" for="txtApellido" value="Apellidos : " />
+                    <p:inputText id="txtApellido" value="#{profesorFormBean.profesorBean.profesor.apellido}" required="true" />
+                    <p:commandButton id="btnRegistrar" value="Registrar"
+                                     onclick="PF('dlgProfesor').show();"
+                                     update="tblDatosProfesor"
+                                     />
+
+                    <p:dialog id="dlg" header="Datos del Profesor: " widgetVar="dlgProfesor"  modal="true" >
+                        <h:panelGrid id="tblDatosProfesor" columns="2" >
+                            <p:outputLabel id="lbl" value="Legajo Registrado : " />
+                            <p:outputLabel value="#{profesorFormBean.profesorBean.profesor.legajo}" />
+                            <p:outputLabel value="Documento : " />
+                            <p:outputLabel value="#{profesorBean.profesor.documento}" />
+                            <p:outputLabel value="Apellidos Registrados : " />
+                            <p:outputLabel value="#{profesorBean.profesor.apellido}" />
+                            <p:outputLabel value="Nombres Registrados : " />
+                            <p:outputLabel value="#{profesorBean.profesor.nombres}" />
+                            <p:commandButton value="Cerrar" icon="ui-icon-check" onclick="PF('dlgProfesor').hide();" /> 
+                        </h:panelGrid>
+                    </p:dialog>
+                </p:panelGrid>
+            </h:form>
+        </p:panel>        
+    </h:body>
+</html>
+
