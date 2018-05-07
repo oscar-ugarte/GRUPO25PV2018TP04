@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Aplicacion Listado y Busqueda de Libros</title>
+    </h:head>
+    <h:body>
+ <p:panel header="Registro y Busqueda de Libros" id="pnlRegistroLibro" >
+            <h:form id="frmRegistroLibros">
+
+                <p:panelGrid id="tblRegistroLibro" columns="2" >
+                    <p:outputLabel id="lblIsbn" value="Ingrese ISBN: " for="txtIsbn" />
+                    <p:inputText id="txtIsbn" value="#{busquedaYListadoDeLibrosFormBean.libro.isbn}" required="true" />
+                    <p:outputLabel id="lblTitulo" value="Ingrese Titulo: " for="txtTitulo" />
+                    <p:inputText id="txtTitulo" value="#{busquedaYListadoDeLibrosFormBean.libro.titulo}" required="true" />
+                    <p:outputLabel id="lblAutor" value="Elija un autor: " for="mnAutores" />
+                    <p:selectOneMenu value="#{busquedaYListadoDeLibrosFormBean.libro.autor}" id="mnAutores"  
+                                     converter="omnifaces.SelectItemsConverter" required="true" >
+                        <f:selectItems value="#{busquedaYListadoDeLibrosFormBean.listaDeAutores.autores}"
+                                       var="autor"
+                                       itemLabel="#{autor.nombre}  #{autor.apellido} " 
+                                       itemValue="#{autor}"
+                                       />
+                    </p:selectOneMenu>
+                    <p:outputLabel id="lblPrecio" value="Ingrese precio: " for="txtPrecio" />
+                    <p:inputNumber id="txtPrecio" thousandSeparator="." decimalPlaces="2" 
+                                   value="#{busquedaYListadoDeLibrosFormBean.libro.precio}"
+                                   decimalSeparator="," required="true" />
+                    <p:outputLabel />
+                    <p:commandButton value="Agregar Libro" 
+                                     actionListener="#{busquedaYListadoDeLibrosFormBean.añadirLibro()}"
+                                     update=":frmRegistroLibros:tblLibros"
+                                     />
+                </p:panelGrid>
+                <br/>
+
+                <p:panelGrid id="tblBusquedaAutor" columns="3" >
+                    <p:outputLabel id="lblBuscarAutor" value="Buscar Libros por Autor :" />
+                    <p:selectOneMenu value="#{busquedaYListadoDeLibrosFormBean.autor}" id="mnBusquedaAutor"
+                                     required="true"
+                                     converter="omnifaces.SelectItemsConverter" >
+                        <f:selectItems value="#{busquedaYListadoDeLibrosFormBean.listaDeAutores.autores}"
+                                       var="autor"
+                                       itemLabel="#{autor.nombre}  #{autor.apellido} " 
+                                       itemValue="#{autor}"
+                                       />
+                    </p:selectOneMenu>
+                    <p:commandButton value="Buscar" 
+                                     actionListener="#{busquedaYListadoDeLibrosFormBean.buscarPorAutor()}"
+                                     update="tblLibrosBuscados"
+                                     />
+                </p:panelGrid>
+                <br/>
+                
+                <p:dataTable id="tblLibrosBuscados" value="#{busquedaYListadoDeLibrosFormBean.listaDeLibrosPorAutor.libros}" var="libro">
+                    <p:column headerText="ISBN">
+                        <p:outputLabel value="#{libro.isbn}"/>
+                    </p:column>
+
+                    <p:column headerText="Titulo">
+                        <p:outputLabel value="#{libro.titulo}" />
+                    </p:column>
+
+                    <p:column headerText="Autor">
+                        <p:outputLabel value="#{libro.autor.nombre} #{libro.autor.apellido} " />
+                    </p:column>
+
+                    <p:column headerText="Precio">
+                        <p:outputLabel value="#{libro.precio}" />
+                    </p:column>
+
+                </p:dataTable>
+
+                <br/>
+                <p:outputLabel value="Listado de libros completos" />
+
+                <p:dataTable id="tblLibros" value="#{busquedaYListadoDeLibrosFormBean.listaDeLibros.libros}" var="libro">
+                    <p:column headerText="ISBN">
+                        <p:outputLabel value="#{libro.isbn}"/>
+                    </p:column>
+
+                    <p:column headerText="Titulo">
+                        <p:outputLabel value="#{libro.titulo}" />
+                    </p:column>
+
+                    <p:column headerText="Autor">
+                        <p:outputLabel value="#{libro.autor.nombre} #{libro.autor.apellido} " />
+                    </p:column>
+
+                    <p:column headerText="Precio">
+                        <p:outputLabel value="#{libro.precio}" />
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
+
