@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Aplicación Conversor de Temperaturas</title>
+    </h:head>
+    <h:body>
+        <p:panel id="pnlConversorTemperatura" header="Conversor de Temperaturas">
+            <h:form id="frmConversor">
+                <p:outputLabel id="lblTipoConversion" value="Tipo de conversion: " /> <!--Mensaje de Cabecera-->
+                <h:panelGrid id="pnlConversor" columns="3" > 
+                    <p:selectOneRadio id="radioTipoConversion" value="#{conversorTemperaturaFormBean.tipoConversion}"  >
+                        <!--ItemLabel es lo que muestra y itemValue el valor que guarda.-->
+                        <f:selectItem itemLabel="Cel a Fahr" itemValue="CelFar"  /> 
+                        <f:selectItem itemLabel="Fahr a Cel" itemValue="FarCel"  /> 
+                        <f:selectItem itemLabel="Kel a Fahr" itemValue="KelFar"  />                        
+                        <f:selectItem itemLabel="Cel a Kel" itemValue="CelKel"  /> 
+                        <f:selectItem itemLabel="Fahr A Kel" itemValue="FarKel"  /> 
+                        <f:selectItem itemLabel="Kel a Cel" itemValue="KelCel"  /> 
+                    </p:selectOneRadio>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" >
+                    <p:outputLabel id="lblValor" value="Ingrese Valor : " for="txtTemperatura" />
+                    <p:inputNumber  id="txtTemperatura" decimalPlaces="2" thousandSeparator="." decimalSeparator=","  
+                                    value="#{conversorTemperaturaFormBean.valorIngresado}"
+                                    />                    
+                    <p:commandButton id="btnConvertir" value="Convertir" 
+                                     actionListener="#{conversorTemperaturaFormBean.convertirTemperatura()}"
+                                     update="lblValorConvertido"
+                                     />
+                    <p:outputLabel />
+                    <p:outputLabel value="Resutado: " />
+                    <p:outputLabel id="lblValorConvertido" value="#{conversorTemperaturaFormBean.resultadoConversion}" />
+                </h:panelGrid>
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
+
