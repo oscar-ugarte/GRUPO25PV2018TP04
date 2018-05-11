@@ -2,23 +2,33 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Aplicación Calculadors</title>
     </h:head>
     <h:body>
         <p:panel id="pnlCalculadora" header="Aplicacion Calculadora" >
             <h:form id="frmCalculadora" >
-                <h:panelGrid id="tblCalculadora" columns="2" >
-                    <p:outputLabel id="lblNumeroA" value="Ingrese numero:  " />
+                <h:panelGrid id="tblCalculadora" columns="3" >
+                    <p:outputLabel id="lblNumeroA" value="Ingrese numero:  " for="txtNumeroA" />
                     <p:inputNumber id="txtNumeroA" thousandSeparator="." decimalPlaces="2"
-                                   decimalSeparator="," value="#{calculadoraFormBean.numeroA}" 
-                                   />
+                                   decimalSeparator="," value="#{calculadoraFormBean.numeroA}"
+                                   required="true"
+                                   >
+                        <f:validateLength minimum="1" />
+                    </p:inputNumber>
+                    <p:message for="txtNumeroA"  />
 
-                    <p:outputLabel id="lblNumeroB" value="Ingrese numero:  " />
+                    <p:outputLabel id="lblNumeroB" value="Ingrese numero:  " for="txtNumeroB" />
                     <p:inputNumber id="txtNumeroB" thousandSeparator="." decimalPlaces="2"
-                                   decimalSeparator="," value="#{calculadoraFormBean.numeroB}" 
-                                   />
+                                   decimalSeparator="," value="#{calculadoraFormBean.numeroB}"
+                                   required="true"
+                                   >
+                        <f:validateLength minimum="1" />
+                    </p:inputNumber>
+                    <p:message for="txtNumeroB"  />
+                    
                     <p:outputLabel id="lblMensajeResultado" value="Resultado: " />
                     <p:outputLabel id="lblResultado" value="#{calculadoraFormBean.resultado}" />
                 </h:panelGrid>
@@ -26,23 +36,23 @@
                 <h:panelGrid id="tblBotones" columns="5">
                     <p:commandButton id="btnCalcularSuma" value="SUMAR"
                                      actionListener="#{calculadoraFormBean.sumar() }"
-                                     update="lblResultado  lblMensajeError"  />
+                                     update="tblCalculadora lblResultado  lblMensajeError"  />
 
                     <p:commandButton id="btnCalcularResta" value="RESTAR"
                                      actionListener="#{calculadoraFormBean.restar()}"
-                                     update="lblResultado  lblMensajeError"  />
+                                     update="tblCalculadora lblResultado  lblMensajeError"  />
 
                     <p:commandButton id="btnCalcularMultiplicacion" value="MULTIPLICAR"
                                      actionListener="#{calculadoraFormBean.multiplicar() }"
-                                     update="lblResultado lblMensajeError" />  
+                                     update="tblCalculadora lblResultado lblMensajeError" />  
 
                     <p:commandButton id="btnCalcularDivision" value="DIVIDIR"
                                      actionListener="#{calculadoraFormBean.dividir()}"
-                                     update="lblResultado lblMensajeError" />  
+                                     update="tblCalculadora lblResultado lblMensajeError" />  
 
                     <p:commandButton id="btnCalcularPotencia" value="POTENCIA"
                                      actionListener="#{calculadoraFormBean.obtenerPotencia()}"
-                                     update="lblResultado lblMensajeError"/>  
+                                     update="tblCalculadora lblResultado lblMensajeError"/>  
                 </h:panelGrid>
                 <!--Aqui termina la parte de los botones-->
                 <p:outputLabel id="lblMensajeError" value="#{calculadoraFormBean.mensajeDeError}" />
