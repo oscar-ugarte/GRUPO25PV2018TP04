@@ -1,8 +1,10 @@
 package aplicacion.punto7.beans.forms;
 
+import aplicacion.punto7.beans.LibroBean;
 import aplicacion.punto7.modelo.dominio.*;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -12,6 +14,8 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @ViewScoped
 public class ListaDeLibrosFormBean implements Serializable{
+    @ManagedProperty (value = "#{libroBean}" )
+    private LibroBean libroBean ;
     private ListaDeAutores listaDeAutores ;
     private ListaDeLibros listaDeLibros ;
     private ListaDeLibros listaDeLibrosPorAutor ;
@@ -26,6 +30,7 @@ public class ListaDeLibrosFormBean implements Serializable{
         listaDeLibros = new ListaDeLibros() ;
         listaDeLibrosPorAutor = new ListaDeLibros() ;
         libro = new Libro();
+        libroBean = new LibroBean() ;
     }
 
     /**
@@ -87,10 +92,11 @@ public class ListaDeLibrosFormBean implements Serializable{
     /**
      * Añade un libro a la lista.
      */
+    /** Se oculta para probar el otro metodo
     public void añadirLibro(){
         listaDeLibros.añadirLibro(libro);
         libro = new Libro();        
-    }
+    }**/
 
     /**
      * @return the autor
@@ -105,4 +111,28 @@ public class ListaDeLibrosFormBean implements Serializable{
     public void setAutor(Autor autor) {
         this.autor = autor;
     }
+
+    /**
+     * @return the libroBean
+     */
+    public LibroBean getLibroBean() {
+        return libroBean;
+    }
+
+    /**
+     * @param libroBean the libroBean to set
+     */
+    public void setLibroBean(LibroBean libroBean) {
+        this.libroBean = libroBean;
+    }
+    
+    /**
+     * Añade un libro a la lista.
+     */
+    public void añadirLibro(){
+        listaDeLibros.añadirLibro(libroBean.getLibro());
+        libroBean = new LibroBean();        
+    }
+    
+    
 }
