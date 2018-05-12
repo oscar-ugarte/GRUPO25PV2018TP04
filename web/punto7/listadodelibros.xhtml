@@ -13,17 +13,17 @@
 
                 <p:panelGrid id="tblRegistroLibro" columns="3" >
                     <p:outputLabel id="lblIsbn" value="Ingrese ISBN: " for="txtIsbn" />
-                    <p:inputText id="txtIsbn" value="#{listaDeLibrosFormBean.libro.isbn}" required="true" >
+                    <p:inputText id="txtIsbn" value="#{listaDeLibrosFormBean.libroBean.libro.isbn }" required="true" >
                         <f:validateLength maximum="13" />
                     </p:inputText>
                     <p:message for="txtIsbn" />
                     <p:outputLabel id="lblTitulo" value="Ingrese Titulo: " for="txtTitulo" />
-                    <p:inputText id="txtTitulo" value="#{listaDeLibrosFormBean.libro.titulo}" required="true" >
+                    <p:inputText id="txtTitulo" value="#{listaDeLibrosFormBean.libroBean.libro.titulo}" required="true" >
                         <f:validateLength minimum="3" />
                     </p:inputText>
                     <p:message for="txtTitulo" />
                     <p:outputLabel id="lblAutor" value="Elija un autor: " for="mnAutores" />
-                    <p:selectOneMenu value="#{listaDeLibrosFormBean.libro.autor}" id="mnAutores"  
+                    <p:selectOneMenu value="#{listaDeLibrosFormBean.libroBean.libro.autor}" id="mnAutores"  
                                      converter="omnifaces.SelectItemsConverter" required="true" >
                         <f:selectItem itemLabel="Seleccione..." itemValue=""   />
                         <f:selectItems value="#{listaDeLibrosFormBean.listaDeAutores.autores}"
@@ -35,7 +35,7 @@
                     <p:messages for="mnAutores" />
                     <p:outputLabel id="lblPrecio" value="Ingrese precio: " for="txtPrecio" />
                     <p:inputNumber id="txtPrecio" thousandSeparator="." decimalPlaces="2" 
-                                   value="#{listaDeLibrosFormBean.libro.precio}"
+                                   value="#{listaDeLibrosFormBean.libroBean.libro.precio}"
                                    decimalSeparator="," required="true" >
                         <f:validateLongRange minimum="1" maximum="999999" />
                     </p:inputNumber>
