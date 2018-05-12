@@ -8,54 +8,31 @@
         <title>Aplicacion Listado y Busqueda de Libros</title>
     </h:head>
     <h:body>
- <p:panel header="Registro y Busqueda de Libros" id="pnlRegistroLibro" >
-            <h:form id="frmRegistroLibros">
-
-                <p:panelGrid id="tblRegistroLibro" columns="2" >
-                    <p:outputLabel id="lblIsbn" value="Ingrese ISBN: " for="txtIsbn" />
-                    <p:inputText id="txtIsbn" value="#{busquedaYListadoDeLibrosFormBean.libro.isbn}" required="true" />
-                    <p:outputLabel id="lblTitulo" value="Ingrese Titulo: " for="txtTitulo" />
-                    <p:inputText id="txtTitulo" value="#{busquedaYListadoDeLibrosFormBean.libro.titulo}" required="true" />
-                    <p:outputLabel id="lblAutor" value="Elija un autor: " for="mnAutores" />
-                    <p:selectOneMenu value="#{busquedaYListadoDeLibrosFormBean.libro.autor}" id="mnAutores"  
-                                     converter="omnifaces.SelectItemsConverter" required="true" >
-                        <f:selectItems value="#{busquedaYListadoDeLibrosFormBean.listaDeAutores.autores}"
-                                       var="autor"
-                                       itemLabel="#{autor.nombre}  #{autor.apellido} " 
-                                       itemValue="#{autor}"
-                                       />
-                    </p:selectOneMenu>
-                    <p:outputLabel id="lblPrecio" value="Ingrese precio: " for="txtPrecio" />
-                    <p:inputNumber id="txtPrecio" thousandSeparator="." decimalPlaces="2" 
-                                   value="#{busquedaYListadoDeLibrosFormBean.libro.precio}"
-                                   decimalSeparator="," required="true" />
-                    <p:outputLabel />
-                    <p:commandButton value="Agregar Libro" 
-                                     actionListener="#{busquedaYListadoDeLibrosFormBean.añadirLibro()}"
-                                     update=":frmRegistroLibros:tblLibros"
-                                     />
-                </p:panelGrid>
-                <br/>
-
+        <p:panel header="Registro y Busqueda de Libros" id="pnlRegistroLibro" >
+            <h:form id="frmBusquedaAutor" >
                 <p:panelGrid id="tblBusquedaAutor" columns="3" >
-                    <p:outputLabel id="lblBuscarAutor" value="Buscar Libros por Autor :" />
+                    <p:outputLabel id="lblBuscarAutor" value="Buscar Libros por Autor :" for="mnBusquedaAutor" />
                     <p:selectOneMenu value="#{busquedaYListadoDeLibrosFormBean.autor}" id="mnBusquedaAutor"
-                                     required="true"
-                                     converter="omnifaces.SelectItemsConverter" >
+                                     converter="omnifaces.SelectItemsConverter" 
+                                     required="true" >
+                        <f:selectItem itemLabel="Seleccione..." itemValue="" />
                         <f:selectItems value="#{busquedaYListadoDeLibrosFormBean.listaDeAutores.autores}"
-                                       var="autor"
-                                       itemLabel="#{autor.nombre}  #{autor.apellido} " 
-                                       itemValue="#{autor}"
-                                       />
+                                       var="autor2" itemLabel="#{autor2.nombre} #{autor2.apellido} "
+                                       itemValue="#{autor2}" />
                     </p:selectOneMenu>
-                    <p:commandButton value="Buscar" 
-                                     actionListener="#{busquedaYListadoDeLibrosFormBean.buscarPorAutor()}"
-                                     update="tblLibrosBuscados"
+                    <p:message for="mnBusquedaAutor" />
+                    <p:outputLabel value="El Autor es #{busquedaYListadoDeLibrosFormBean.autor.nombre} #{busquedaYListadoDeLibrosFormBean.autor.apellido }" 
+                                   id="autor1" />
+                    <p:commandButton value="Buscar" actionListener="#{busquedaYListadoDeLibrosFormBean.buscarPorAutor()}"
+                                     update="tblBusquedaAutor tblLibrosBuscados"
                                      />
                 </p:panelGrid>
                 <br/>
-                
-                <p:dataTable id="tblLibrosBuscados" value="#{busquedaYListadoDeLibrosFormBean.listaDeLibrosPorAutor.libros}" var="libro">
+                <p:outputLabel value="Listado de libros por autor : " />
+
+                <p:dataTable id="tblLibrosBuscados" value="#{busquedaYListadoDeLibrosFormBean.listaDeLibrosPorAutor.libros}" var="libro"
+                             
+                             >
                     <p:column headerText="ISBN">
                         <p:outputLabel value="#{libro.isbn}"/>
                     </p:column>
@@ -72,12 +49,61 @@
                         <p:outputLabel value="#{libro.precio}" />
                     </p:column>
 
-                </p:dataTable>
+                </p:dataTable>        
 
+            </h:form>
+            
+            <p:separator /> <!--Aqui se separan los formularios-->
+            
+            <h:form id="frmRegistroLibros">
+                <p:panelGrid id="tblRegistroLibro" columns="3" >
+                    <p:outputLabel value="Registrar un Libro:" />
+                    <p:outputLabel />
+                    <p:outputLabel />
+                    
+                    <p:outputLabel id="lblIsbn" value="Ingrese ISBN: " for="txtIsbn" />
+                    <p:inputText id="txtIsbn" value="#{busquedaYListadoDeLibrosFormBean.libro.isbn}" required="true" >
+                        <f:validateLength maximum="13" />
+                    </p:inputText>
+                    <p:message for="txtIsbn" />
+                    
+                    <p:outputLabel id="lblTitulo" value="Ingrese Titulo: " for="txtTitulo" />
+                    <p:inputText id="txtTitulo" value="#{busquedaYListadoDeLibrosFormBean.libro.titulo}" required="true" >
+                        <f:validateLength minimum="5" />
+                    </p:inputText>
+                    <p:message for="txtTitulo" />
+                    
+                    <p:outputLabel id="lblAutor" value="Elija un Autor: " for="mnAutores" />
+                    <p:selectOneMenu value="#{busquedaYListadoDeLibrosFormBean.libro.autor}" id="mnAutores"  
+                                     converter="omnifaces.SelectItemsConverter" required="true" >
+                        <f:selectItem itemLabel="Selecciones..." itemValue="" />
+                        <f:selectItems value="#{busquedaYListadoDeLibrosFormBean.listaDeAutores.autores}"
+                                       var="autor"
+                                       itemLabel="#{autor.nombre}  #{autor.apellido} " 
+                                       itemValue="#{autor}"
+                                       />
+                    </p:selectOneMenu>
+                    <p:message for="mnAutores" />
+                    
+                    <p:outputLabel id="lblPrecio" value="Ingrese Precio: " for="txtPrecio" />
+                    <p:inputNumber id="txtPrecio" thousandSeparator="." decimalPlaces="2" 
+                                   value="#{busquedaYListadoDeLibrosFormBean.libro.precio}"
+                                   decimalSeparator="," required="true" >
+                        <f:validateLongRange minimum="1" maximum="999999" />
+                    </p:inputNumber>
+                    <p:message for="txtPrecio" />
+                    
+                    <p:outputLabel />
+                    <p:commandButton value="Agregar Libro" 
+                                     actionListener="#{busquedaYListadoDeLibrosFormBean.añadirLibro()}"
+                                     update="tblRegistroLibro :frmRegistroLibros:tblLibros"
+                                     />
+                </p:panelGrid>
                 <br/>
-                <p:outputLabel value="Listado de libros completos" />
+                <p:outputLabel value="Listado de libros completos: " />
 
-                <p:dataTable id="tblLibros" value="#{busquedaYListadoDeLibrosFormBean.listaDeLibros.libros}" var="libro">
+                <p:dataTable id="tblLibros" value="#{busquedaYListadoDeLibrosFormBean.listaDeLibros.libros}" var="libro"
+                             >
                     <p:column headerText="ISBN">
                         <p:outputLabel value="#{libro.isbn}"/>
                     </p:column>
