@@ -62,19 +62,19 @@
                     <p:outputLabel />
                     
                     <p:outputLabel id="lblIsbn" value="Ingrese ISBN: " for="txtIsbn" />
-                    <p:inputText id="txtIsbn" value="#{busquedaYListadoDeLibrosFormBean.libro.isbn}" required="true" >
+                    <p:inputText id="txtIsbn" value="#{busquedaYListadoDeLibrosFormBean.libroBean.libro.isbn}" required="true" >
                         <f:validateLength maximum="13" />
                     </p:inputText>
                     <p:message for="txtIsbn" />
                     
                     <p:outputLabel id="lblTitulo" value="Ingrese Titulo: " for="txtTitulo" />
-                    <p:inputText id="txtTitulo" value="#{busquedaYListadoDeLibrosFormBean.libro.titulo}" required="true" >
+                    <p:inputText id="txtTitulo" value="#{busquedaYListadoDeLibrosFormBean.libroBean.libro.titulo}" required="true" >
                         <f:validateLength minimum="5" />
                     </p:inputText>
                     <p:message for="txtTitulo" />
                     
                     <p:outputLabel id="lblAutor" value="Elija un Autor: " for="mnAutores" />
-                    <p:selectOneMenu value="#{busquedaYListadoDeLibrosFormBean.libro.autor}" id="mnAutores"  
+                    <p:selectOneMenu value="#{busquedaYListadoDeLibrosFormBean.libroBean.libro.autor}" id="mnAutores"  
                                      converter="omnifaces.SelectItemsConverter" required="true" >
                         <f:selectItem itemLabel="Selecciones..." itemValue="" />
                         <f:selectItems value="#{busquedaYListadoDeLibrosFormBean.listaDeAutores.autores}"
@@ -87,7 +87,7 @@
                     
                     <p:outputLabel id="lblPrecio" value="Ingrese Precio: " for="txtPrecio" />
                     <p:inputNumber id="txtPrecio" thousandSeparator="." decimalPlaces="2" 
-                                   value="#{busquedaYListadoDeLibrosFormBean.libro.precio}"
+                                   value="#{busquedaYListadoDeLibrosFormBean.libroBean.libro.precio}"
                                    decimalSeparator="," required="true" >
                         <f:validateLongRange minimum="1" maximum="999999" />
                     </p:inputNumber>
