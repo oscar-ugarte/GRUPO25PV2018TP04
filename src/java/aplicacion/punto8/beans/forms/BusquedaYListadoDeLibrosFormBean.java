@@ -1,8 +1,10 @@
 package aplicacion.punto8.beans.forms;
 
+import aplicacion.punto8.beans.LibroBean;
 import aplicacion.punto8.modelo.dominio.*;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 /**
@@ -12,6 +14,8 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @ViewScoped
 public class BusquedaYListadoDeLibrosFormBean implements Serializable {
+    @ManagedProperty(value = "#{libroBean}")
+    private LibroBean libroBean;
     private ListaDeAutores listaDeAutores;
     private ListaDeLibros listaDeLibros;
     private ListaDeLibros listaDeLibrosPorAutor;
@@ -27,6 +31,7 @@ public class BusquedaYListadoDeLibrosFormBean implements Serializable {
         listaDeLibrosPorAutor = new ListaDeLibros();
         libro = new Libro();
         autor = new Autor();
+        libroBean = new LibroBean() ;      
     }
 
     /**
@@ -102,9 +107,31 @@ public class BusquedaYListadoDeLibrosFormBean implements Serializable {
     /**
      * Agrega un libro al listado.
      */
-    public void añadirLibro() {
-        listaDeLibros.añadirLibro(libro);
-        libro = new Libro();
+    /**
+     * Ya no se usa public void añadirLibro() {
+     * listaDeLibros.añadirLibro(libro); libro = new Libro();
+    }*
+     */
+    /**
+     * @return the libroBean
+     */
+    public LibroBean getLibroBean() {
+        return libroBean;
+    }
+
+    /**
+     * @param libroBean the libroBean to set
+     */
+    public void setLibroBean(LibroBean libroBean) {
+        this.libroBean = libroBean;
+    }
+
+    /**
+     * Permite Agregar un libro a la lista.
+     */
+    public void añadirLibro(){
+        listaDeLibros.añadirLibro(libroBean.getLibro());
+        libroBean = new LibroBean();        
     }
     
     /**
@@ -113,6 +140,5 @@ public class BusquedaYListadoDeLibrosFormBean implements Serializable {
     public void buscarPorAutor() {
         listaDeLibrosPorAutor = new ListaDeLibros();
         listaDeLibrosPorAutor.setLibros(listaDeLibros.buscarPorAutor(autor));
-    }    
-    
+    }
 }
