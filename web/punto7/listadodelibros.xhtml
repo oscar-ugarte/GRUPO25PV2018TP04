@@ -11,29 +11,41 @@
         <p:panel header="Registro de libros" id="pnlRegistroLibro" >
             <h:form id="frmRegistroLibros">
 
-                <p:panelGrid id="tblRegistroLibro" columns="2" >
+                <p:panelGrid id="tblRegistroLibro" columns="3" >
                     <p:outputLabel id="lblIsbn" value="Ingrese ISBN: " for="txtIsbn" />
-                    <p:inputText id="txtIsbn" value="#{listaDeLibrosFormBean.libro.isbn}" required="true" />
+                    <p:inputText id="txtIsbn" value="#{listaDeLibrosFormBean.libro.isbn}" required="true" >
+                        <f:validateLength maximum="13" />
+                    </p:inputText>
+                    <p:message for="txtIsbn" />
                     <p:outputLabel id="lblTitulo" value="Ingrese Titulo: " for="txtTitulo" />
-                    <p:inputText id="txtTitulo" value="#{listaDeLibrosFormBean.libro.titulo}" required="true" />
+                    <p:inputText id="txtTitulo" value="#{listaDeLibrosFormBean.libro.titulo}" required="true" >
+                        <f:validateLength minimum="3" />
+                    </p:inputText>
+                    <p:message for="txtTitulo" />
                     <p:outputLabel id="lblAutor" value="Elija un autor: " for="mnAutores" />
                     <p:selectOneMenu value="#{listaDeLibrosFormBean.libro.autor}" id="mnAutores"  
                                      converter="omnifaces.SelectItemsConverter" required="true" >
+                        <f:selectItem itemLabel="Seleccione..." itemValue=""   />
                         <f:selectItems value="#{listaDeLibrosFormBean.listaDeAutores.autores}"
                                        var="autor"
                                        itemLabel="#{autor.nombre}  #{autor.apellido} " 
                                        itemValue="#{autor}"
                                        />
                     </p:selectOneMenu>
+                    <p:messages for="mnAutores" />
                     <p:outputLabel id="lblPrecio" value="Ingrese precio: " for="txtPrecio" />
                     <p:inputNumber id="txtPrecio" thousandSeparator="." decimalPlaces="2" 
                                    value="#{listaDeLibrosFormBean.libro.precio}"
-                                   decimalSeparator="," required="true" />
+                                   decimalSeparator="," required="true" >
+                        <f:validateLongRange minimum="1" maximum="999999" />
+                    </p:inputNumber>
+                    <p:message for="txtPrecio" />
                     <p:outputLabel />
                     <p:commandButton value="Agregar Libro" 
                                      actionListener="#{listaDeLibrosFormBean.añadirLibro()}"
-                                     update=":frmRegistroLibros:tblLibros"
+                                     update="tblRegistroLibro  :frmRegistroLibros:tblLibros"
                                      />
+                    <p:outputLabel />
                 </p:panelGrid>
 
                 <br/>
