@@ -2,23 +2,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>    
       <title>LISTA DE NUMEROS</title>
     </h:head>
     <h:body>
-         <p:panel id="pnlGestorNumeros" header="Gestion de Numeros" > <!--Esta es la cabecera-->
+         <p:panel id="pnlGestorNumeros" header="Gestion de Numeros" > 
             <h:form id="frmRegistrarNumero" >
-                <p:panelGrid id="pnlRegistrarNumero" columnClasses="4" > <!--Agrupa los elementos que contiene y se puede indicar cuantas columnas tendra-->
+                <p:panelGrid id="pnlRegistrarNumero" columns="4" > 
                     <p:outputLabel id="lblNumero" for="txtNumero" value="Ingrese un numero : " />
-                    <p:inputNumber id="txtNumero" value="#{gestorDeNumerosFormBean.numero}"  />
-                    <p:outputLabel value=" " /><!--Para generar un espacio-->
+                    <p:inputNumber id="txtNumero" value="#{gestorDeNumerosFormBean.numero}" required="true"  
+                                   decimalPlaces="2" thousandSeparator="." decimalSeparator=","
+                                   >
+                        <f:validateLongRange minimum="-9999999" maximum="999999" />
+                    </p:inputNumber>
                     <p:commandButton id="btnRegistrarNumero" value="Registrar Numero" 
                                      actionListener="#{gestorDeNumerosFormBean.agregarNumero()}"
-                                     update=":frmNumeros"
+                                     update="txtNumero :frmNumeros"
                                      />
-                    <!--El actionlistener se encarga de llamar al metodo-->
-                    <!--El update se encarga de actualizar la tabla de numeros.-->
+                    <p:message for="txtNumero" />
                 </p:panelGrid>
             </h:form>
             <!--Aqui termina la primera parte de ingreso. Ahora se muestran los datos-->
