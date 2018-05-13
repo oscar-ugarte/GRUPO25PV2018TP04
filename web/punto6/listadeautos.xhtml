@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Aplicacion Lista de Autos</title>
     </h:head>
@@ -28,32 +29,48 @@
                     <p:column headerText="Modificar">
                         <p:commandButton  value="Modificar" 
                                           actionListener="#{listaDeAutosFormBean.editar(auto)}"
-                                          update=":frmAutos:tblModificarAuto"
+                                          update=":frmDialog:tblModificarAuto"
                                           onclick="PF('dlgMAuto').show();"
                                           />
                     </p:column>
                 </p:dataTable>
 
+            </h:form>
+
+            <h:form id="frmDialog">
                 <p:dialog id="dlgAuto" header="Modificar Auto" modal="true" widgetVar="dlgMAuto"  >
-                    <p:panelGrid id="tblModificarAuto" columns="2">
+                    <p:panelGrid id="tblModificarAuto" columns="3">
                         <p:outputLabel id="lblPatente" value="Patente :" />
-                        <p:inputText id="txtPatente" disabled="true" value="#{listaDeAutosFormBean.auto.patente}"/>
+                        <p:inputText id="txtPatente" disabled="true" value="#{listaDeAutosFormBean.auto.patente}" required="true" />
+                        <p:message for="txtPatente" />
                         <p:outputLabel id="pnlMarca" value="Marca :" />
-                        <p:inputText id="txtMarca" value="#{listaDeAutosFormBean.auto.marca}" />
+                        <p:inputText id="txtMarca" value="#{listaDeAutosFormBean.auto.marca}" required="true" >
+                            <f:validateLength minimum="2" maximum="20" />
+                        </p:inputText>
+                        <p:message for="txtMarca" />
                         <p:outputLabel id="lblModelo" value="Modelo :"/>
-                        <p:inputText id="txtModelo" value="#{listaDeAutosFormBean.auto.modelo}" />
+                        <p:inputText id="txtModelo" value="#{listaDeAutosFormBean.auto.modelo}" required="true" >
+                            <f:validateLength minimum="2" maximum="20" />
+                        </p:inputText>
+                        <p:message for="txtModelo" />
                         <p:outputLabel id="lblColor" value="Color :"  />
-                        <p:inputText id="txtColor" value="#{listaDeAutosFormBean.auto.color}" />
+                        <p:inputText id="txtColor" value="#{listaDeAutosFormBean.auto.color}" required="true" >
+                            <f:validateLength minimum="4" maximum="20" />
+                        </p:inputText>
+                        <p:message for="txtColor" />
                         <p:outputLabel id="lblCombustible" value="Combustible :" />
-                        <p:inputText id="txtCombustible" value="#{listaDeAutosFormBean.auto.combustible}" />
+                        <p:inputText id="txtCombustible" value="#{listaDeAutosFormBean.auto.combustible}" required="true" >
+                            <f:validateLength minimum="3" maximum="20" />
+                        </p:inputText>
+                        <p:message for="txtCombustible" />
                         <p:commandButton value="Guardar Cambios" 
-                                         onclick="PF('dlgAuto').hide();"
                                          update=":frmAutos:tblAutos"
+                                         onclick="PF('dlgMAuto').hide();"
                                          />
                     </p:panelGrid>
                 </p:dialog>
-
             </h:form>
+
         </p:panel>
     </h:body>
 </html>
