@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Aplicación del Juego del Ahorcado</title>
+    </h:head>
+    <h:body>
+        <p:panel header="Nombres de Paises - Juego del Ahorcado" id="pnlJuego" >
+            <h:form id="frmJuego" >
+                <p:panelGrid id="tblJuego" columns="2" >
+                    <p:outputLabel id="lblIntentos" value="Intentos:" />
+                    <p:outputLabel id="lblNumeroDeIntentos" value="#{juegoDelAhorcadoFormsBean.intentos} " />
+                    <p:outputLabel id="lblPalabraOculta" value="Palabra Oculta" />
+                    <p:outputLabel id="lblPalabraOcultada" value="#{juegoDelAhorcadoFormsBean.obtenerPalabraOcultaEspaciada() }"   />
+                </p:panelGrid>
+                <p:separator />
+                <p:panelGrid id="ingresoLetra" columns="4" >
+                    <p:outputLabel id="lblIngresoLetra" value="Ingrese una letra :" for="txtLetra" />
+                    <p:inputText id="txtLetra" value="#{juegoDelAhorcadoFormsBean.letra}" required="true" >
+                        <f:validateLength minimum="1" maximum="1" />
+                    </p:inputText>
+                    <p:commandButton value="Ingresar" 
+                                     actionListener="#{juegoDelAhorcadoFormsBean.ingresarUnaLetra()}"
+                                     update="error lblNumeroDeIntentos lblPalabraOcultada estadoDelJuego txtLetra"
+                                     />
+                    <p:message for="txtLetra" id="error" />
+                </p:panelGrid>
+                <p:separator />
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Juego : " id="lblJuego" />
+                    <p:outputLabel id="estadoDelJuego" value="#{juegoDelAhorcadoFormsBean.mensajeFinal}" />
+                </p:panelGrid>
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
+
